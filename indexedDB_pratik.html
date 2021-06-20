@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+      <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+      <script>
+          var veritabani = new Dexie("indexedveritabani_pratik");
+          veritabani.version(1).stores({
+              kisiler: 'isim,yas'
+          });
+          // Veri kaydediliyor.
+          veritabani.kisiler.put({isim: "Uğur GELİŞKEN", yas: 35}).then (function(){
+              // Veri kayedildikten sonra okunuyor
+              return veritabani.kisiler.get('Uğur GELİŞKEN');
+          }).then(function (kisiler) {
+              // Sonuç konsolda gösteriliyor
+              console.log("Seçilen kişinin ismi " + kisiler.isim + " ve yaşı :" + kisiler.yas);
+          }).catch(function(hata) {
+             // Eğer bir hata olursa bu blokta işleyebiliriz.
+             console.log("Hata oldu: " + hata);
+          });
+      </script>
+  </head>
+</html>
